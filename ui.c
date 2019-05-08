@@ -620,6 +620,7 @@ void sprint_host(char * line, int af, struct in6_addr* addr, unsigned int port, 
 
 
 void ui_print() {
+	
     sorted_list_node* nn = NULL;
     char host1[HOSTNAME_LENGTH], host2[HOSTNAME_LENGTH];
     static char *line;
@@ -709,6 +710,7 @@ void ui_print() {
 
                 mvaddstr(y, x, host2);
                 
+
                 if(options.show_totals) {
                     draw_line_total(screen_line->total_sent, screen_line->total_recv, y, COLS - 8 * (HISTORY_DIVISIONS + 1), options.linedisplay, 1);
                 }
@@ -797,9 +799,13 @@ void ui_curses_init() {
     {
         start_color();          /* Start color          */
         use_default_colors();   /* retain terminal fg , bg colors */
+	init_pair(4, COLOR_RED, COLOR_BLACK);
+	attron(COLOR_PAIR(4));
+	attron(A_BOLD);
+	//init_color(COLOR_RED, 400, 0, 0);
         init_pair(COLOR_PAIR_RECV, COLOR_GREEN,  -1);  /* Download color */
-        init_pair(COLOR_PAIR_SENT, COLOR_BLUE,   -1);
-        init_pair(COLOR_PAIR_BOTH, COLOR_MAGENTA,-1);
+        init_pair(COLOR_PAIR_SENT, COLOR_CYAN, -1);
+        init_pair(COLOR_PAIR_BOTH, COLOR_RED, COLOR_WHITE);
     }
     keypad(stdscr, TRUE);  /* enable keyboard mapping */
     (void) nonl();         /* tell curses not to do NL->CR/NL on output */
